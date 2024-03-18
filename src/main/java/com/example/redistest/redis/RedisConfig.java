@@ -53,18 +53,4 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
-    public CacheManager cacheManager(){
-        RedisCacheManager.RedisCacheManagerBuilder builder=
-                RedisCacheManager.RedisCacheManagerBuilder
-                        .fromConnectionFactory(redisConnectionFactory());
-        RedisCacheConfiguration configuration=
-        RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair
-                        .fromSerializer(new GenericJackson2JsonRedisSerializer())) //value Serializer 변경
-                .entryTtl(Duration.ofMinutes(5)); // 캐시 수명 5분
-                builder.cacheDefaults(configuration);
-                return builder.build();
-    }
-
 }
